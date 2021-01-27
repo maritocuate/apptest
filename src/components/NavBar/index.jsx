@@ -1,6 +1,7 @@
 import Navbar from 'react-bootstrap/Navbar'
 import Nav from 'react-bootstrap/Nav'
 import NavDropdown from 'react-bootstrap/NavDropdown'
+import CartWidget from './CartWidget'
 
 function NavBar(props) {
      return (
@@ -20,7 +21,7 @@ function NavBar(props) {
                          <Nav.Link href="#contact">Contact</Nav.Link>
                     </Nav>
                     <Nav>
-                         <Nav.Link href="https://maritoq.com">@marioquiroga</Nav.Link>
+                         <CartWidget />
                     </Nav>
                     </Navbar.Collapse>
                </Navbar>
