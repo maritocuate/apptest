@@ -3,9 +3,7 @@ import './cartwidget.scss'
 
 const CartWidget = () => {
      return (
-          <div>
-               <RiShoppingCartLine className='cart' />
-          </div>
+          <RiShoppingCartLine className='cart' />
      )
 }
 
