@@ -33,7 +33,7 @@ const ItemCount = ({stock, initial, onAdd}) => {
                     <button
                          className='btn bg-yellow btn-block'
                          disabled={(stock===0) ? 'disabled': ''}
-                         onClick={onAdd}
+                         onClick={() => onAdd(stock, counter)}
                          >Agregar al carrito</button>
                </div>
           </div>
