@@ -2,12 +2,14 @@ import './scss/main.scss';
 
 import NavBar from './components/NavBar';
 import ItemListContainer from './containers/ItemListContainer';
+import ItemDetailContainer from './containers/ItemDetailContainer';
 
 function App() {
   return (
     <>
       <NavBar />
-      <ItemListContainer greeting={'Lista de items'}/>
+      <ItemDetailContainer />
+      {/* <ItemListContainer greeting={'Lista de items'}/> */}
     </>
   );
 }
