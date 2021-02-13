@@ -1,4 +1,5 @@
 import { useState } from 'react'
+
 import { data } from '../mocks/data.js'
 import Item from './Item.jsx'
 
@@ -25,7 +26,7 @@ const ItemList = () => {
                               <span className="sr-only">Loading...</span>
                          </div>
                }
-               <div className="list-group">    
+               <div className="d-flex flex-wrap justify-content-between">    
                     {recipes.map(recipe => <Item key={recipe.id} {...recipe} />)}
                </div>
           </div>

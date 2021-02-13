@@ -3,10 +3,10 @@ import ItemDetail from "../../components/ItemDetail"
 import { data } from '../../components/mocks/data.js'
 
 
-const ItemDetailContainer = () => {
+const ItemDetailContainer = (props) => {
 
      const [loading, setLoading] = useState(true)
-     const [product, setProduct] = useState([])
+     const [product, setProduct] = useState({})
      
      useEffect(() => {
           const getItems = new Promise((resolve) => {
@@ -16,22 +16,22 @@ const ItemDetailContainer = () => {
           })
           
           getItems.then(e => {
-               setProduct(e)
+               const selectedItem = e.filter( prod => prod.id===Number(props.match.params.id) )
+               setProduct(selectedItem)
                setLoading(false)
           })
      }, [])
 
 
      return (
-          <div className='container d-flex flex-column'>
+          <div style={{alignItems:'center'}} className='container d-flex flex-column justify-content-center'>
                {
                     loading ?
-                         <div className="spinner-border" role="status">
+                         <div className="spinner-border mt-5" role="status">
                               <span className="sr-only">Loading...</span>
                          </div>
                          :
                          <ItemDetail key={product[0].id} {...product[0]}/>
-                         //product.map(prod => <ItemDetail key={prod.id} {...prod}/>)
                }
                
           </div>

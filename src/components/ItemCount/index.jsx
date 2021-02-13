@@ -18,9 +18,9 @@ const ItemCount = ({stock, initial, onAdd}) => {
      }
 
      return (
-          <div id='itemcount' className="card bg-dark">
+          <div id='itemcount' className="card bg-dark mx-2 col-4">
                <div className="card-header">
-                    Camisa Tiger
+                    Cantidad
                </div>
                <div className="card-body">
                     <div className="btn-group w-100" role="group" aria-label="Basic example">
