@@ -2,13 +2,14 @@ import { useState, useEffect } from "react"
 import { useHistory } from "react-router-dom"
 import ItemCount from "../ItemCount"
 
-const ItemDetail = ({nombre, img, descripcion, precio}) => {
+const ItemDetail = (props) => {
 
+     const {nombre, img, descripcion, precio} = props
      const history = useHistory();
-     const [selectedProducts, setSelectedProducts] = useState(0)
+     const [selectedProducts, setSelectedProducts] = useState(null)
      
      const onAdd = (stock, counter) => {
-          if(counter <= stock) setSelectedProducts(counter)
+          if(counter <= stock) setSelectedProducts( {...props, cantidad: counter} )
      }
 
      useEffect(() => {
@@ -26,7 +27,7 @@ const ItemDetail = ({nombre, img, descripcion, precio}) => {
                </div>
 
                {
-                    (selectedProducts < 1)
+                    (selectedProducts === null)
                     ? <ItemCount stock={5} initial={1} onAdd={onAdd} />
                     : <button className='btn-gocart' onClick={()=> history.push('/cart') }>GO CART</button>
                }
