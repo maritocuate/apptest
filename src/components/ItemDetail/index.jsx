@@ -1,19 +1,20 @@
-import { useState, useEffect } from "react"
+import { useEffect, useContext } from "react"
 import { useHistory } from "react-router-dom"
+import { CartContext } from "../../context/cartContext"
 import ItemCount from "../ItemCount"
 
 const ItemDetail = (props) => {
 
-     const {nombre, img, descripcion, precio} = props
+     const { cart, addItem } = useContext( CartContext )
+     const { nombre, img, descripcion, precio } = props
      const history = useHistory();
-     const [selectedProducts, setSelectedProducts] = useState(null)
      
      const onAdd = (stock, counter) => {
-          if(counter <= stock) setSelectedProducts( {...props, cantidad: counter} )
+          if(counter <= stock) addItem( [...cart, { item: {...props}, quantity: counter }] )
      }
 
      useEffect(() => {
-     }, [selectedProducts])
+     }, [cart])
 
      return (
           <div className='container item-detail-container d-flex py-4 mt-4'>
@@ -27,7 +28,7 @@ const ItemDetail = (props) => {
                </div>
 
                {
-                    (selectedProducts === null)
+                    (cart.length < 1)
                     ? <ItemCount stock={5} initial={1} onAdd={onAdd} />
                     : <button className='btn-gocart' onClick={()=> history.push('/cart') }>GO CART</button>
                }
