@@ -22,7 +22,7 @@ function NavBar(props) {
                          <Nav.Link href="#contact">Contact</Nav.Link>
                     </Nav>
                     <Nav>
-                         <CartWidget />
+                         <Link to="/cart"><CartWidget /></Link>
                     </Nav>
                     </Navbar.Collapse>
                </Navbar>

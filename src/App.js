@@ -6,6 +6,7 @@ import { CartProvider } from './context/cartContext'
 import NavBar from './components/NavBar';
 import ItemListContainer from './containers/ItemListContainer';
 import ItemDetailContainer from './containers/ItemDetailContainer';
+import Cart from './components/Cart';
 
 function App() {
   return (
@@ -19,7 +20,7 @@ function App() {
               <ItemListContainer greeting={'Menu'}/>
             </Route>
             <Route path="/item/:id" component={ItemDetailContainer}/>
-            <Route path="/cart"/>
+            <Route path="/cart" component={ Cart }/>
             <Route path="*">
               <Redirect to='/'/>
             </Route>

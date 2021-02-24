@@ -28,7 +28,7 @@ const ItemDetail = (props) => {
                </div>
 
                {
-                    (cart.length < 1)
+                    (cart.length < 5)
                     ? <ItemCount stock={5} initial={1} onAdd={onAdd} />
                     : <button className='btn-gocart' onClick={()=> history.push('/cart') }>GO CART</button>
                }
