@@ -6,14 +6,28 @@ export const CartProvider = ({ children }) => {
      
      const [cart, setCart] = useState([])
 
-     const addItem = item => setCart(item)
+     const addItem = item => {
+          
+          let result = cart.filter( prod => prod.item.id!==item.item.id )
+          let match = cart.filter( prod => prod.item.id===item.item.id )
+
+          if(!match.length) setCart( [...cart, item ] )
+
+          if(match.length){
+               const newItem = {
+                    item: item.item,
+                    quantity: item.quantity+match[0].quantity
+               }
+               setCart( [...result,  newItem ] )
+          } 
+     }
 
      const removeItem = id => {
           const newItems = cart.filter( prod => prod.item.id !== id )
           setCart(newItems)
      }
 
-     const clear = () => setCart([])
+     const removeAll = () => setCart([])
 
      const isInCart = id => {
           const newItems = cart.filter( prod => prod.item.id === id )
@@ -25,7 +39,7 @@ export const CartProvider = ({ children }) => {
                cart,
                addItem,
                removeItem,
-               clear,
+               removeAll,
                isInCart
           }}>
                { children }

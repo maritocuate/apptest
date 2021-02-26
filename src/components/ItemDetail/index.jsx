@@ -10,7 +10,7 @@ const ItemDetail = (props) => {
      const history = useHistory();
      
      const onAdd = (stock, counter) => {
-          if(counter <= stock) addItem( [...cart, { item: {...props}, quantity: counter }] )
+          if(counter <= stock) addItem(  {item: {...props}, quantity: counter}  )
      }
 
      useEffect(() => {
