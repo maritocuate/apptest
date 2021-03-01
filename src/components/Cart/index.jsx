@@ -11,7 +11,7 @@ function Cart() {
      return (
           <div className='container my-4 col-4 text-center'>
                <RiShoppingCartLine className="m-4 h2"/>
-               
+
                {
                     cart.length===0
                          ? 
@@ -26,12 +26,18 @@ function Cart() {
                                         cart.map(prod => (
                                              <li key={ prod.item.id } className="list-group-item d-flex justify-content-between align-items-center list-group-item-dark">
                                                   <span className="lead">{ prod.quantity }</span>
-                                                  <span className="lead">{ prod.item.nombre }</span>
+                                                  <span className="lead">${ prod.item.precio }</span>
+                                                  <span className="lead col-4">{ prod.item.nombre }</span>
                                                   <span style={{cursor:'pointer'}} onClick={()=>removeItem(prod.item.id)}><RiDeleteBin6Line className="text-dark" /></span>
                                              </li>
                                         ))
                                    }
                               </ul>
+                              <p className="pt-3">
+                                   Total: ${
+                                        (cart.length>1) ? cart.reduce((a,b) => Number(a.item.precio) + Number(b.item.precio)) : cart[0].item.precio
+                                   }
+                              </p>
                               <div className="btn-group w-100 mt-3">
                                    <label className="btn btn-dark btn-lg cart" onClick={()=>removeAll()}>VACIAR <RiCloseCircleLine className="mb-1" /></label>
                                    <label className="btn btn-dark btn-lg cart">COMPRAR <RiCheckboxCircleLine className="mb-1" /></label>
