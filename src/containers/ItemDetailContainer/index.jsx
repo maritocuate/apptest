@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react"
-import ItemDetail from "../../components/ItemDetail"
-import { data } from '../../components/mocks/data.js'
 
+import { getFirestore } from '../../firebase'
+import ItemDetail from "../../components/ItemDetail"
 
 const ItemDetailContainer = (props) => {
 
@@ -9,18 +9,17 @@ const ItemDetailContainer = (props) => {
      const [product, setProduct] = useState({})
      
      useEffect(() => {
-          const getItems = new Promise((resolve) => {
-               setTimeout(()=>{
-                    resolve(data)
-               }, 2000)
-          })
+          setLoading(true)
+
+          const db = getFirestore()
+          const itemsCollection = db.collection('items')
+          const itemById = itemsCollection.where('id', '==', props.match.params.id)
           
-          getItems.then(e => {
-               const selectedItem = e.filter( prod => prod.id===Number(props.match.params.id) )
-               setProduct(selectedItem)
+          itemById.get().then((querySnapshot) => {
+               setProduct( querySnapshot.docs.map(doc => doc.data()) )
                setLoading(false)
           })
-     }, [])
+     }, []) 
 
 
      return (

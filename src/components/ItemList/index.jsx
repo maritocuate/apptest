@@ -1,22 +1,25 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
-import { data } from '../mocks/data.js'
+import { getFirestore } from '../../firebase'
 import Item from './Item.jsx'
 
 const ItemList = () => {
 
      const [loading, setLoading] = useState(true)
-     const [recipes, setRecipes] = useState([])
+     const [items, setItems] = useState([])
 
-     const getData = new Promise((resolve) => {
-          setTimeout(()=>{
-               resolve(data)
-          }, 5000)
-     })
-     getData.then(e => {
-          setRecipes(e)
-          setLoading(false)
-     })
+     useEffect(() => {
+          setLoading(true)
+
+          const db = getFirestore()
+          const itemsCollection = db.collection('items')
+
+          itemsCollection.get().then((querySnapshot) => {
+               (querySnapshot.size === 0) && console.log("No results")
+               setItems( querySnapshot.docs.map(doc => doc.data()) )
+          
+          }).finally(() => setLoading(false))
+     }, [])
 
      return (
           <div style={{alignItems:'center'}} className='container d-flex flex-column justify-content-center'>
@@ -27,7 +30,7 @@ const ItemList = () => {
                          </div>
                }
                <div className="d-flex flex-wrap justify-content-between">    
-                    {recipes.map(recipe => <Item key={recipe.id} {...recipe} />)}
+                    {items.map(item => <Item key={item.id} {...item} />)}
                </div>
           </div>
      )

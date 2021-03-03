@@ -1,6 +1,6 @@
-# MQ Resto App
+# MQ Forbidden Items
 
-Aplicación e-commerce de actualización semanal.
+Aplicación e-commerce de elementos prohibidos (?).
 
 ## Scripts
 

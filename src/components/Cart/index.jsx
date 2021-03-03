@@ -8,6 +8,12 @@ function Cart() {
 
      const { cart, removeItem, removeAll } = useContext( CartContext )
 
+     const getTotal = () => {
+          const sum = (cart.length>1) ? cart.reduce((a,b) => Number(a.item.precio) + Number(b.item.precio)) : cart[0].item.precio
+          const quantity = (cart.length>1) ? cart.reduce((a,b) => a.quantity + b.quantity) : cart[0].quantity
+          return sum*quantity
+     }
+
      return (
           <div className='container my-4 col-4 text-center'>
                <RiShoppingCartLine className="m-4 h2"/>
@@ -35,7 +41,7 @@ function Cart() {
                               </ul>
                               <p className="pt-3">
                                    Total: ${
-                                        (cart.length>1) ? cart.reduce((a,b) => Number(a.item.precio) + Number(b.item.precio)) : cart[0].item.precio
+                                        getTotal()
                                    }
                               </p>
                               <div className="btn-group w-100 mt-3">
