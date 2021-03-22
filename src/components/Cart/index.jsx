@@ -1,4 +1,6 @@
 import React, { useContext } from 'react'
+import firebase from 'firebase/app'
+import { getFirestore } from '../../firebase'
 
 import { Link } from 'react-router-dom'
 import { CartContext } from '../../context/cartContext'
@@ -7,11 +9,33 @@ import { RiShoppingCartLine, RiDeleteBin6Line, RiCloseCircleLine, RiCheckboxCirc
 function Cart() {
 
      const { cart, removeItem, removeAll } = useContext( CartContext )
+     const buyer = {
+          name: 'Rodrigo',
+          phone: '11432890',
+          email: 'rodrigo@gmail.com'
+     }
 
      const getTotal = () => {
           const sum = (cart.length>1) ? cart.reduce((a,b) => Number(a.item.precio) + Number(b.item.precio)) : cart[0].item.precio
           const quantity = (cart.length>1) ? cart.reduce((a,b) => a.quantity + b.quantity) : cart[0].quantity
           return sum*quantity
+     }
+
+     const comprar = () => {
+          const db = getFirestore()
+          const orders = db.collection('ordenes')
+          const newOrder = {
+               buyer,
+               cart,
+               date: firebase.firestore.Timestamp.fromDate(new Date())
+          }
+
+          orders.add(newOrder).then(({id}) => {
+               removeAll()
+               console.log('Compra realizada con exito')
+          }).catch(e => {
+               console.log('Error en la compra')
+          })
      }
 
      return (
@@ -46,7 +70,7 @@ function Cart() {
                               </p>
                               <div className="btn-group w-100 mt-3">
                                    <label className="btn btn-dark btn-lg cart" onClick={()=>removeAll()}>VACIAR <RiCloseCircleLine className="mb-1" /></label>
-                                   <label className="btn btn-dark btn-lg cart">COMPRAR <RiCheckboxCircleLine className="mb-1" /></label>
+                                   <label className="btn btn-dark btn-lg cart" onClick={()=>comprar()}>COMPRAR <RiCheckboxCircleLine className="mb-1" /></label>
                               </div>
                          </>
                          
